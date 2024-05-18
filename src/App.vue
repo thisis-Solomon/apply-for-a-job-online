@@ -23,7 +23,7 @@ import DUMMY_DATA from "./data.json";
 import { jobFilter } from "./utils/jobFilter";
 
 const jobs = ref(DUMMY_DATA);
-const filteredJobs = ref(["Javascript"]);
+const filteredJobs = ref([]);
 
 function removeFilteredJobs(id) {
   filteredJobs.value = filteredJobs.value.filter(
