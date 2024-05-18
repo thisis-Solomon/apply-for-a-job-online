@@ -19,7 +19,7 @@
             >Featured</span
           >
         </h1>
-        <h2 class="font-bold text-lg">{{ job.position }}</h2>
+        <h2 class="font-bold text-lg hover:text-desaturated-dark-cyan cursor-pointer">{{ job.position }}</h2>
         <ul class="flex gap-2 text-dark-grayish-cyan items-center">
           <li>{{ job.postedAt }}</li>
           <span class="w-1 h-1 bg-dark-grayish-cyan rounded-full"></span>
