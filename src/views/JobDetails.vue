@@ -17,24 +17,31 @@
       <article class="whitespace-pre-wrap mb-10">
         {{ description }}
       </article>
-      <button class="bg-sky-500 py-3 px-8 rounded-md text-lg font-semibold ">Apply</button>
+      <button class="bg-sky-500 py-3 px-8 rounded-md text-lg font-semibold">
+        Apply
+      </button>
     </Card>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
 import JobHeader from "../components/JobHeader.vue";
 import JobTag from "../components/JobTag.vue";
 import Card from "../components/shared/Card.vue";
 import DUMMY_DATA from "../data.json";
 
-const id = ref(1);
+const route = useRoute();
+
+const id = ref(route.params.id);
 const jobs = ref(DUMMY_DATA);
 
+console.log(id.value);
 const job = computed(() => {
-  return jobs.value.find((job) => job.id === id.value);
+  return jobs.value.find((job) => job.id === +id.value);
 });
+console.log(job.value);
 
 const description = ref(`Description
 
