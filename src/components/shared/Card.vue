@@ -13,7 +13,7 @@ import { defineProps, computed } from "vue";
 const props = defineProps({
   job: {
     type: Object,
-    required: true,
+    required: false,
   },
 });
 
