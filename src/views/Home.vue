@@ -1,5 +1,4 @@
 <template>
-  <main class="bg-light-rayish-cyan--background py-16">
     <div class="relative container p-2 mx-auto w-[80%]">
       <FilterTags
         :filters="filteredJobs"
@@ -10,7 +9,6 @@
         <JobLists :job="job" @add-to-filter="addPositionToFilter" />
       </section>
     </div>
-  </main>
 </template>
 
 <script setup>
