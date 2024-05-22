@@ -5,16 +5,20 @@
     }}</label>
     <input
       v-if="type !== 'textarea'"
-      :type="text"
+      :type="type"
       :id="inputId"
       class="px-1 py-2 border rounded-md placeholder:font-light focus:ring-slate-400 outline-none"
       :placeholder="placeholder"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
     />
     <textarea
-      rows="10"
       v-else
+      :id="inputId"
       :placeholder="placeholder"
       class="px-1 py-2 border rounded-md placeholder:font-light focus:ring-slate-400 outline-none"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
     ></textarea>
   </div>
 </template>
@@ -33,7 +37,11 @@ const props = defineProps({
   },
   type: {
     type: String,
-    default: "text",
+    default: "",
+  },
+  modelValue: {
+    type: String,
+    default: "",
   },
 });
 
