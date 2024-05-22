@@ -4,7 +4,7 @@
       label
     }}</label>
     <input
-      v-if="type !== 'textarea'"
+      v-if="type"
       :type="type"
       :id="inputId"
       class="px-1 py-2 border rounded-md placeholder:font-light focus:ring-slate-400 outline-none"
@@ -15,6 +15,7 @@
     <textarea
       v-else
       :id="inputId"
+      rows="10"
       :placeholder="placeholder"
       class="px-1 py-2 border rounded-md placeholder:font-light focus:ring-slate-400 outline-none"
       :value="modelValue"

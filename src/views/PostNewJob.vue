@@ -5,42 +5,59 @@
         v-model="company"
         label="Company name"
         placeholder="e.g - BrainStorm Innovation"
+        type="text"
       />
       <InputField
         v-model="position"
         label="Position"
         placeholder="Fullstack Developer"
+        type="text"
       />
-      <InputField v-model="role" label="Role" placeholder="Fullstack" />
-      <InputField v-model="level" label="Level" placeholder="Midweight" />
+      <InputField
+        v-model="role"
+        label="Role"
+        placeholder="Fullstack"
+        type="text"
+      />
+      <InputField
+        v-model="level"
+        label="Level"
+        placeholder="Midweight"
+        type="text"
+      />
       <InputField
         v-model="contract"
         label="Contract"
         placeholder="Part Time | Intern | Full Time"
+        type="text"
       />
       <InputField
         v-model="location"
         label="Location"
         placeholder="Lusaka - In office"
+        type="text"
       />
       <InputField
         v-model="languages"
         label="Languages"
         placeholder="Javascript - React - Firebase"
+        type="text"
       />
       <InputField
         v-model="tools"
         label="Tools"
         placeholder="Figma - git - gitlab"
+        type="text"
       />
       <InputField
         v-model="closeDate"
         label="Close date"
-        placeholder="28/03/1994"
+        placeholder="1994/03/28"
+        type="text"
       />
       <InputField
         v-model="jobDescription"
-         class="whitespace-pre-wrap"
+        class="whitespace-pre-wrap"
         label="Job description"
         placeholder="- Company overview  -Job description -Role Responsibilities and Requirement"
       />
