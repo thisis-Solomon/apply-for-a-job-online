@@ -40,8 +40,7 @@
       />
       <InputField
         v-model="jobDescription"
-        type="textarea"
-        class="whitespace-pre-wrap"
+         class="whitespace-pre-wrap"
         label="Job description"
         placeholder="- Company overview  -Job description -Role Responsibilities and Requirement"
       />
