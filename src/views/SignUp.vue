@@ -3,16 +3,17 @@
     <form>
       <InputField label="Email" placeholder="Enter registered email" />
       <InputField label="Password" placeholder="Enter password" />
+      <InputField label="Re-enter Password" placeholder="Enter password" />
       <button
         class="border px-8 py-2 rounded-md uppercase text-sm font-semibold bg-white shadow-md"
       >
-        Login
+        Sign up
       </button>
     </form>
     <p class="text-sm py-5 text-center">
-      Don't have an account
-      <router-link :to="{name: 'SignUp'}" class="text-sky-700 underline"
-        >sign up here</router-link
+      Already have an account
+      <router-link :to="{ name: 'Login' }" class="text-sky-700 underline"
+        >Login</router-link
       >
     </p>
   </ContainerLayout>
