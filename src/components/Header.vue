@@ -3,7 +3,7 @@
     <ContainerLayout>
       <div class="flex items-center justify-between mt-5">
         <h1 class="text-3xl">
-          <router-link to="/"> Apply4aJobOnline </router-link>
+          <router-link to="/"> Apply4JobsOnline </router-link>
         </h1>
         <nav class="flex gap-16 text-lg">
           <ul class="flex gap-8">
