@@ -22,6 +22,7 @@ const routes = [
     path: "/add-new-job",
     name: "PostNewJob",
     component: PostNewJob,
+    meta: { requiredAuth: "true" },
   },
   {
     path: "/career-tips",

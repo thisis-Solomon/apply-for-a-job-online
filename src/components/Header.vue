@@ -20,6 +20,9 @@
                 >Trending Jobs</router-link
               >
             </li>
+            <li>
+              <router-link :to="{ name: 'PostNewJob' }">Post a Job</router-link>
+            </li>
           </ul>
           <ul class="flex gap-8">
             <li
