@@ -6,6 +6,7 @@ import CareerTips from "../views/CareerTips.vue";
 import TrendingJobs from "../views/TrendingJobs.vue";
 import Login from "../views/Login.vue";
 import SignUp from "../views/SignUp.vue";
+import { authState } from "../auth/auth.js";
 
 const routes = [
   {
@@ -49,6 +50,14 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiredAuth && !authState.isAuthenticated) {
+    next({ name: "Login" });
+  } else {
+    next();
+  }
 });
 
 export default router;

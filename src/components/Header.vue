@@ -21,7 +21,11 @@
               >
             </li>
             <li>
-              <router-link :to="{ name: 'PostNewJob' }">Post a Job</router-link>
+              <router-link
+                v-if="authState.isAuthenticated"
+                :to="{ name: 'PostNewJob' }"
+                >Post a Job</router-link
+              >
             </li>
           </ul>
           <ul class="flex gap-8">
@@ -39,4 +43,7 @@
 
 <script setup>
 import ContainerLayout from "./ContainerLayout.vue";
+import { inject } from "vue";
+
+const authState = inject("authState");
 </script>
