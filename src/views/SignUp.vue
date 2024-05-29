@@ -39,25 +39,39 @@ import { ref, inject } from "vue";
 
 import ContainerLayout from "../components/ContainerLayout.vue";
 import InputField from "../components/shared/InputField.vue";
+import { SignUpT } from "../types/types";
+import { useRouter } from "vue-router";
 
 const email = ref("");
 const password = ref("");
 const reEnterPassword = ref("");
 const passwordMatch = ref("");
 
-const signup = inject("signup");
+const route = useRouter();
+
+const signup = inject<SignUpT>("signup");
+
+if (!signup) {
+  throw new Error("signup function is not provided");
+}
 
 const signupHandler = async () => {
   if (password.value !== reEnterPassword.value) {
-    passwordMatch.value =
-      "This is password do not match with the previews password";
+    passwordMatch.value = "Passwords do not match";
     return;
   }
 
+  passwordMatch.value = "";
+
   try {
     const user = await signup(email.value, password.value);
+    if (user) {
+      route.push("/");
+    } else {
+      throw Error("Signup failed");
+    }
   } catch (error) {
-    console.log(error.message);
+    console.log("An error occurred during signup:", error);
   }
 };
 </script>

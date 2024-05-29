@@ -6,7 +6,7 @@
         class="flex text-sm gap-x-5 text-desaturated-dark-cyan font-semibold"
       >
         <JobTag
-          v-for="tag in [job.role, job.level, ...job.languages]"
+          v-for="tag in [job?.role, job?.level, ...(job?.languages || [])]"
           :key="tag"
           :tag="tag"
         />
@@ -31,19 +31,18 @@ import JobHeader from "../components/JobHeader.vue";
 import JobTag from "../components/JobTag.vue";
 import Card from "../components/shared/Card.vue";
 import DUMMY_DATA from "../data.json";
+import { JobsT } from "../types/types";
 
 const route = useRoute();
 
 const id = ref(route.params.id);
-const jobs = ref(DUMMY_DATA);
+const jobs = ref<JobsT[]>(DUMMY_DATA);
 
-console.log(id.value);
-const job = computed(() => {
+const job = computed<JobsT | undefined>(() => {
   return jobs.value.find((job) => job.id === +id.value);
 });
-console.log(job.value);
 
-const description = ref(`Description
+const description = ref<string>(`Description
 
 We are looking for a Full Stack Web Developer to join our team in building a game-changing point of sale system. A point of sale (POS), or point of purchase, is where you ring up customers. When customers check out online, walk up to our counter, or pick out an item from our stand or booth, they’re at our point of sale. It’s basically a system which includes both the hardware and software that enables businesses to make sales. You’ll be part of our young and energetic team that’s responsible for the full software development life cycle, from conception to
 deployment. As a Full Stack Web Developer, you should be knowledgeable about PHP, Javascript and SQL.

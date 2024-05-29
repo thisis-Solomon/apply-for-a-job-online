@@ -14,5 +14,7 @@ const props = defineProps({
   tag: String,
 });
 
+const tag = props.tag;
+
 const emits = defineEmits(["click"]);
 </script>

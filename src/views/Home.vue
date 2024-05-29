@@ -17,17 +17,18 @@ import FilterTags from "../components/FilterTags.vue";
 import JobLists from "../components/JobLists.vue";
 import DUMMY_DATA from "../data.json";
 import { jobFilter } from "../utils/jobFilter";
+import { JobsT } from "../types/types";
 
-const jobs = ref(DUMMY_DATA);
-const filteredJobs = ref([]);
+const jobs = ref<JobsT[]>(DUMMY_DATA);
+const filteredJobs = ref<JobsT[]>([]);
 
-function removeFilteredJobs(id) {
+function removeFilteredJobs(id: number) {
   filteredJobs.value = filteredJobs.value.filter(
-    (filteredJob) => filteredJob !== id
+    (filteredJob) => filteredJob.id !== id
   );
 }
 
-function addPositionToFilter(jobPosition) {
+function addPositionToFilter(jobPosition: JobsT[]) {
   if (
     !filteredJobs.value.includes(jobPosition) &&
     filteredJobs.value.length < 5

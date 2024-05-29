@@ -32,17 +32,39 @@
 import { ref, inject } from "vue";
 import ContainerLayout from "../components/ContainerLayout.vue";
 import InputField from "../components/shared/InputField.vue";
+import { useRouter } from "vue-router";
+import { SignUpT } from "../types/types";
+
+const router = useRouter();
 
 const email = ref("");
 const password = ref("");
+const errorMessage = ref("");
 
-const login = inject("login");
+const login = inject<SignUpT>("login");
 
 const loginHandler = async () => {
+  if (!login) {
+    errorMessage.value = "Login function is not provided";
+    return;
+  }
+
   try {
     const user = await login(email.value, password.value);
+    if (user) {
+      console.log("User logged in successfully", user);
+      router.push('/'); 
+    } else {
+      errorMessage.value = "Invalid email or password. Please try again.";
+    }
   } catch (error) {
-    console.error;
+    if (error instanceof Error) {
+      errorMessage.value = `An error occurred during login: ${error.message}`;
+    } else {
+      errorMessage.value =
+        "An unexpected error occurred. Please try again later.";
+    }
+    console.error("An error occurred during login:", error);
   }
 };
 </script>

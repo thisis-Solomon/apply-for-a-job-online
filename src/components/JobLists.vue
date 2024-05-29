@@ -18,13 +18,18 @@ import JobHeader from "./JobHeader.vue";
 import JobTag from "./JobTag.vue";
 import Card from "./shared/Card.vue";
 
-const props = defineProps({
-  job: Object,
-});
+type JobIF = {
+  role: string;
+  level: string;
+  languages: string[];
+};
 
-const emits = defineEmits(["add-to-filter"]);
+const props = defineProps<{ job: JobIF }>();
+const job = props.job;
 
-function addToFilter(filter) {
+const emits = defineEmits<{ (e: "add-to-filter", filter: string): void }>();
+
+function addToFilter(filter: string) {
   emits("add-to-filter", filter);
 }
 </script>
