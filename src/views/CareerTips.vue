@@ -9,6 +9,6 @@
   </ContainerLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import ContainerLayout from "../components/ContainerLayout.vue";
 </script>

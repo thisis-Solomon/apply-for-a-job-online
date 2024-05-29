@@ -10,7 +10,7 @@ export const authState = reactive({
   isAuthenticated: false,
 });
 
-export async function signup(email, password) {
+export async function signup(email: string, password: string) {
   try {
     const newUserCred = await createUserWithEmailAndPassword(
       auth,
@@ -25,7 +25,7 @@ export async function signup(email, password) {
   }
 }
 
-export async function login(email, password) {
+export async function login(email: string, password: string) {
   try {
     const userCred = await signInWithEmailAndPassword(auth, email, password);
     const user = userCred.user;
@@ -36,7 +36,7 @@ export async function login(email, password) {
 
     return user;
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     throw error;
   }
 }

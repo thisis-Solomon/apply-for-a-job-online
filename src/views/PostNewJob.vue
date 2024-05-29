@@ -70,7 +70,7 @@
   </ContainerLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import ContainerLayout from "../components/ContainerLayout.vue";
 import InputField from "../components/shared/InputField.vue";

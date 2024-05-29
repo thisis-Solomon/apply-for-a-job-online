@@ -41,9 +41,15 @@
   </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import ContainerLayout from "./ContainerLayout.vue";
 import { inject } from "vue";
+interface AuthState {
+  isAuthenticated: boolean;
+}
+const authState = inject<AuthState>("authState");
 
-const authState = inject("authState");
+if (!authState) {
+  throw new Error("authState is not provided");
+}
 </script>

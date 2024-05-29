@@ -28,7 +28,7 @@
   </ContainerLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, inject } from "vue";
 import ContainerLayout from "../components/ContainerLayout.vue";
 import InputField from "../components/shared/InputField.vue";

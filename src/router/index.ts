@@ -1,4 +1,10 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  RouteRecordRaw,
+  NavigationGuardNext,
+  RouteLocationNormalized,
+} from "vue-router";
 import Home from "../views/Home.vue";
 import JobDetails from "../views/JobDetails.vue";
 import PostNewJob from "../views/PostNewJob.vue";
@@ -6,9 +12,9 @@ import CareerTips from "../views/CareerTips.vue";
 import TrendingJobs from "../views/TrendingJobs.vue";
 import Login from "../views/Login.vue";
 import SignUp from "../views/SignUp.vue";
-import { authState } from "../auth/auth.js";
+import { authState } from "../auth/auth.ts";
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Home",
@@ -52,12 +58,18 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.meta.requiredAuth && !authState.isAuthenticated) {
-    next({ name: "Login" });
-  } else {
-    next();
+router.beforeEach(
+  (
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    next: NavigationGuardNext
+  ) => {
+    if (to.meta.requiredAuth && !authState.isAuthenticated) {
+      next({ name: "Login" });
+    } else {
+      next();
+    }
   }
-});
+);
 
 export default router;
