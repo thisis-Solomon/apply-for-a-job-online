@@ -1,4 +1,5 @@
 interface Job {
+id: string | number | symbol | undefined;
   role: string;
   level: string;
   languages: string[];

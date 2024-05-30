@@ -20,17 +20,17 @@ import { jobFilter } from "../utils/jobFilter";
 import { JobsT } from "../types/types";
 
 const jobs = ref<JobsT[]>(DUMMY_DATA);
-const filteredJobs = ref<JobsT[]>([]);
+const filteredJobs = ref<any>([]);
 
 function removeFilteredJobs(id: number) {
   filteredJobs.value = filteredJobs.value.filter(
-    (filteredJob) => filteredJob.id !== id
+    (filteredJob: { id: number; }) => filteredJob.id !== id
   );
 }
 
-function addPositionToFilter(jobPosition: JobsT[]) {
+function addPositionToFilter(jobPosition: string) {
   if (
-    !filteredJobs.value.includes(jobPosition) &&
+    !filteredJobs.value.join().includes(jobPosition) &&
     filteredJobs.value.length < 5
   ) {
     filteredJobs.value.push(jobPosition);

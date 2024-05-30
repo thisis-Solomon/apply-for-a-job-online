@@ -6,12 +6,12 @@
     <ul class="flex gap-x-10">
       <li
         v-for="filter in filters"
-        :key="filter"
+        :key="filter.id"
         class="relative rounded-md bg-light-rayish-cyan--background py-0.5 px-3 font-semibold text-desaturated-dark-cyan flex items-center justify-between"
       >
         <span>{{ filter }}</span>
         <button
-          @click="removeFilter(filter)"
+          @click="removeFilter(filter.position)"
           class="absolute rounded-r-md bg-desaturated-dark-cyan -right-6 h-full flex p-1.5 hover:bg-very-dark-grayish-cyan cursor-pointer"
         >
           <img src="/images/icon-remove.svg" alt="Remove" />
@@ -29,8 +29,12 @@
 
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
+import { JobsT } from "../types/types";
 
-const props = defineProps<{ filters: string[] }>();
+const props = defineProps<{
+  filters: JobsT[];
+}>();
+
 const filters = props.filters;
 
 const emits = defineEmits(["remove-filter", "clear-filters"]);

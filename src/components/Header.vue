@@ -22,7 +22,7 @@
             </li>
             <li>
               <router-link
-                v-if="authState.isAuthenticated"
+                v-if="authState?.isAuthenticated"
                 :to="{ name: 'PostNewJob' }"
                 >Post a Job</router-link
               >
@@ -44,10 +44,10 @@
 <script setup lang="ts">
 import ContainerLayout from "./ContainerLayout.vue";
 import { inject } from "vue";
-interface AuthState {
-  isAuthenticated: boolean;
-}
-const authState = inject<AuthState>("authState");
+// interface AuthState {
+//   isAuthenticated: boolean;
+// }
+const authState = inject<{isAuthenticated: boolean}>("authState");
 
 if (!authState) {
   throw new Error("authState is not provided");
