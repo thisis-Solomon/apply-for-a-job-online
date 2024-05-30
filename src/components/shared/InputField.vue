@@ -9,8 +9,7 @@
       :id="inputId"
       class="px-1 py-2 border rounded-md placeholder:font-light focus:ring-slate-400 outline-none"
       :placeholder="placeholder"
-      :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
+      @input="updateValue"
     />
     <textarea
       v-else
@@ -18,8 +17,7 @@
       rows="10"
       :placeholder="placeholder"
       class="px-1 py-2 border rounded-md placeholder:font-light focus:ring-slate-400 outline-none"
-      :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
+      @input="updateValue"
     ></textarea>
   </div>
 </template>
@@ -45,6 +43,15 @@ const props = defineProps({
     default: "",
   },
 });
+
+const { label, placeholder, type } = props;
+
+const emits = defineEmits(["update:modelValue"]);
+
+function updateValue(event: Event) {
+  const target = event.target as HTMLInputElement;
+  emits("update:modelValue", target.value);
+}
 
 const inputId = computed(
   () => `input-${Math.random().toString(36).substr(2, 9)}`
