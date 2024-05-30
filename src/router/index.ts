@@ -61,7 +61,7 @@ const router = createRouter({
 router.beforeEach(
   (
     to: RouteLocationNormalized,
-    from: RouteLocationNormalized,
+    _from: RouteLocationNormalized,
     next: NavigationGuardNext
   ) => {
     if (to.meta.requiredAuth && !authState.isAuthenticated) {
