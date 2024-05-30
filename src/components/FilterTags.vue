@@ -31,7 +31,7 @@
 import { defineProps, defineEmits } from "vue";
 
 const props = defineProps<{ filters: string[] }>();
-const filters = props.filters;
+console.log(props);
 
 const emits = defineEmits(["remove-filter", "clear-filters"]);
 
