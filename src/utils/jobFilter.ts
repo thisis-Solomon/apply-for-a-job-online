@@ -1,4 +1,12 @@
-export function jobFilter(jobs, filters) {
+interface Job {
+  role: string;
+  level: string;
+  languages: string[];
+}
+
+type Filter = string[];
+
+export function jobFilter(jobs: Job[], filters: Filter): Job[] {
   if (filters.length === 0) {
     return jobs;
   }

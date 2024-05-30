@@ -10,14 +10,16 @@
 <script setup lang="ts">
 import { defineProps, computed } from "vue";
 
-const props = defineProps({
+const props: Record<string, any> | undefined = defineProps({
   job: {
     type: Object,
     required: false,
   },
 });
 
+const featured: boolean = props.job.featured;
+
 const dynamicClasses = computed(() => ({
-  "border-l-4 border-desaturated-dark-cyan": props.job.featured,
+  "border-l-4 border-desaturated-dark-cyan": featured,
 }));
 </script>
