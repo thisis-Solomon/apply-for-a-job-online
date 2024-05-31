@@ -17,7 +17,7 @@ const props: Record<string, any> | undefined = defineProps({
   },
 });
 
-const featured: boolean = props.job.featured;
+const featured: boolean = props?.job.featured;
 
 const dynamicClasses = computed(() => ({
   "border-l-4 border-desaturated-dark-cyan": featured,

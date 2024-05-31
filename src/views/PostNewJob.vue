@@ -8,6 +8,30 @@
         type="text"
       />
       <InputField
+        v-model="website"
+        label="Company website"
+        placeholder="e.g - www.brainstorminnovation.com/careers"
+        type="text"
+      />
+      <InputField
+        v-model="company_logo"
+        label="Company logo"
+        placeholder="e.g - BrainStorm Innovation"
+        type="file"
+      />
+      <InputField
+        v-model="emailforappliction"
+        label="Email for applications"
+        placeholder="recruitementlead@brainstorminnovation.com"
+        type="email"
+      />
+      <InputField
+        v-model="salary"
+        label="Salary range"
+        placeholder="e.g - K6800 - K8200"
+        type="number"
+      />
+      <InputField
         v-model="position"
         label="Position"
         placeholder="Fullstack Developer"
@@ -53,7 +77,7 @@
         v-model="closeDate"
         label="Close date"
         placeholder="1994/03/28"
-        type="text"
+        type="date"
       />
       <InputField
         v-model="jobDescription"
@@ -62,7 +86,7 @@
         placeholder="- Company overview  -Job description -Role Responsibilities and Requirement"
       />
       <button
-        class="bg-desaturated-dark-cyan text-light-rayish-cyan--background font-bold mt-5 py-2 px-8 text-lg uppercase rounded-lg"
+        class="bg-desaturated-dark-cyan text-light-rayish-cyan--background font-bold mt-5 py-2 px-8 text-lg uppercase rounded-sm"
       >
         Post a job
       </button>
@@ -86,6 +110,10 @@ const languages = ref("");
 const tools = ref("");
 const closeDate = ref("");
 const jobDescription = ref("");
+const website = ref("");
+const company_logo = ref("");
+const emailforappliction = ref("");
+const salary = ref("");
 
 const handleSubmitFormData = () => {
   const jobData = {
@@ -100,6 +128,10 @@ const handleSubmitFormData = () => {
     tools: tools.value,
     closeDate: closeDate.value,
     jobDescription: jobDescription.value,
+    website: website.value,
+    company_logo: company_logo.value,
+    emailforappliction: emailforappliction.value,
+    salary: salary.value,
   };
   console.log("form data submitted", jobData);
 };

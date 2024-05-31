@@ -47,8 +47,9 @@
 </template>
 
 <script setup lang="ts">
-import ContainerLayout from "./ContainerLayout.vue";
 import { inject } from "vue";
+import ContainerLayout from "./ContainerLayout.vue";
+
 // interface AuthState {
 //   isAuthenticated: boolean;
 // }
