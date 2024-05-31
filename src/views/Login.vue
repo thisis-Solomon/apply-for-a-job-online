@@ -7,12 +7,29 @@
         type="text"
         v-model="email"
       />
+      <p
+        class="text-red-400 ml-1 mb-2 text-sm"
+        v-if="
+          errorMessage.includes('email') || errorMessage.includes('credentials')
+        "
+      >
+        {{ errorMessage }}
+      </p>
       <InputField
         label="Password"
         placeholder="Enter password"
         type="password"
         v-model="password"
       />
+      <p
+        class="text-red-400 ml-1 mb-2 text-sm"
+        v-if="
+          errorMessage.includes('password') ||
+          errorMessage.includes('credentials')
+        "
+      >
+        {{ errorMessage }}
+      </p>
       <button
         class="border px-8 py-2 rounded-md uppercase text-sm font-semibold bg-white shadow-md"
       >
@@ -52,19 +69,23 @@ const loginHandler = async () => {
   try {
     const user = await login(email.value, password.value);
     if (user) {
-      console.log("User logged in successfully", user);
-      router.push('/'); 
-    } else {
-      errorMessage.value = "Invalid email or password. Please try again.";
+      router.push("/");
     }
   } catch (error) {
     if (error instanceof Error) {
-      errorMessage.value = `An error occurred during login: ${error.message}`;
+      if (error.message.includes("Firebase: Error (auth/invalid-email)")) {
+        errorMessage.value = `You entered an invalid email`;
+      } else if (
+        error.message.includes("Firebase: Error (auth/missing-password)")
+      ) {
+        errorMessage.value = "You have entered a wrong password";
+      } else if (error.message.includes("Error (auth/invalid-credential)")) {
+        errorMessage.value = "You have entered invalid credentials";
+      }
     } else {
       errorMessage.value =
         "An unexpected error occurred. Please try again later.";
     }
-    console.error("An error occurred during login:", error);
   }
 };
 </script>
