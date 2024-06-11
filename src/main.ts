@@ -3,7 +3,13 @@ import "./style.css";
 import { authState, signup, logout, login } from "./auth/auth.ts";
 import App from "./App.vue";
 import router from "./router/index.js";
-import { User } from "firebase/auth";
+import { User, onAuthStateChanged } from "firebase/auth";
+import { auth } from "./auth/firebaseConfig.ts";
+
+onAuthStateChanged(auth, (user) => {
+  authState.isAuthenticated = !!user;
+  console.log(user?.providerData);
+});
 
 createApp(App)
   .use(router)

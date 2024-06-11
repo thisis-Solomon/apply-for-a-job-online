@@ -3,19 +3,17 @@
     <ContainerLayout>
       <div class="flex items-center justify-between mt-5">
         <h1 class="text-3xl">
-          <router-link to="/">
-            Apply4JobsOnline
-          </router-link>
+          <router-link to="/">Apply4JobsOnline</router-link>
         </h1>
         <nav class="flex gap-16 text-lg items-center">
           <ul class="flex gap-8">
             <li>
-              <router-link to="/" > Who's Hiring </router-link>
+              <router-link to="/">Who's Hiring</router-link>
             </li>
             <li>
-              <router-link :to="{ name: 'CareerTips' }">
-                Career Tips
-              </router-link>
+              <router-link :to="{ name: 'CareerTips' }"
+                >Career Tips</router-link
+              >
             </li>
             <li>
               <router-link :to="{ name: 'TrendingJobs' }"
@@ -35,6 +33,7 @@
               <router-link
                 :to="{ name: 'Login' }"
                 class="border-2 px-9 py-3.5 bg-transparent rounded-md outline-none border-very-dark-grayish-cyan font-bold text-light-grayish-cyan--filter-tablets tracking-wider hover:bg-light-grayish-cyan--filter-tablets hover:text-very-dark-grayish-cyan cursor-pointer hover:border-desaturated-dark-cyan transition-colors duration-200"
+                @click="handleAuthAction"
               >
                 {{ authState?.isAuthenticated ? "Logout" : "Login" }}
               </router-link>
@@ -50,12 +49,20 @@
 import { inject } from "vue";
 import ContainerLayout from "./ContainerLayout.vue";
 
-// interface AuthState {
-//   isAuthenticated: boolean;
-// }
 const authState = inject<{ isAuthenticated: boolean }>("authState");
+const logout = inject<() => Promise<void>>("logout");
 
 if (!authState) {
   throw new Error("authState is not provided");
 }
+
+if (!logout) {
+  throw new Error("logout function is not provided");
+}
+
+const handleAuthAction = async () => {
+  if (authState.isAuthenticated) {
+    await logout();
+  }
+};
 </script>

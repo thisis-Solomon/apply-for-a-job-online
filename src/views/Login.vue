@@ -37,7 +37,7 @@
       </button>
     </form>
     <p class="text-sm py-5 text-center">
-      Don't have an account
+      Don't have an account?
       <router-link :to="{ name: 'SignUp' }" class="text-sky-700 underline"
         >sign up here</router-link
       >
@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, inject } from "vue";
+import { ref, inject, onMounted } from "vue";
 import ContainerLayout from "../components/ContainerLayout.vue";
 import InputField from "../components/shared/InputField.vue";
 import { useRouter } from "vue-router";
@@ -59,6 +59,11 @@ const password = ref("");
 const errorMessage = ref("");
 
 const login = inject<SignUpT>("login");
+const authState = inject<{ isAuthenticated: boolean }>("authState");
+
+if (!authState) {
+  throw new Error("authState is not provided");
+}
 
 const loginHandler = async () => {
   if (!login) {
@@ -74,7 +79,7 @@ const loginHandler = async () => {
   } catch (error) {
     if (error instanceof Error) {
       if (error.message.includes("Firebase: Error (auth/invalid-email)")) {
-        errorMessage.value = `You entered an invalid email`;
+        errorMessage.value = "You entered an invalid email";
       } else if (
         error.message.includes("Firebase: Error (auth/missing-password)")
       ) {
@@ -88,4 +93,10 @@ const loginHandler = async () => {
     }
   }
 };
+
+onMounted(() => {
+  if (authState.isAuthenticated) {
+    router.push("/");
+  }
+});
 </script>

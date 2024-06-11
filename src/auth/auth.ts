@@ -3,6 +3,9 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  setPersistence,
+  browserLocalPersistence,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { reactive } from "vue";
 
@@ -12,6 +15,7 @@ export const authState = reactive({
 
 export async function signup(email: string, password: string) {
   try {
+    await setPersistence(auth, browserLocalPersistence);
     const newUserCred = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -19,6 +23,7 @@ export async function signup(email: string, password: string) {
     );
     const user = newUserCred.user;
 
+    authState.isAuthenticated = !!user;
     return user;
   } catch (error) {
     console.log(error);
@@ -27,13 +32,11 @@ export async function signup(email: string, password: string) {
 
 export async function login(email: string, password: string) {
   try {
+    await setPersistence(auth, browserLocalPersistence);
     const userCred = await signInWithEmailAndPassword(auth, email, password);
     const user = userCred.user;
 
-    if (user) {
-      authState.isAuthenticated = true;
-    }
-
+    authState.isAuthenticated = !!user;
     return user;
   } catch (error) {
     console.log(error);
@@ -43,10 +46,14 @@ export async function login(email: string, password: string) {
 
 export async function logout() {
   try {
+    await signOut(auth);
     authState.isAuthenticated = false;
-    signOut(auth);
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
+
+onAuthStateChanged(auth, (user) => {
+  authState.isAuthenticated = !!user;
+});
