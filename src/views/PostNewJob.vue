@@ -14,10 +14,10 @@
         type="text"
       />
       <InputField
-        v-model="company_logo"
         label="Company logo"
         placeholder="e.g - BrainStorm Innovation"
         type="file"
+        @change="handleFileChange"
       />
       <InputField
         v-model="emailforappliction"
@@ -96,6 +96,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { uploadFile } from "../auth/firebaseConfig";
 import ContainerLayout from "../components/ContainerLayout.vue";
 import InputField from "../components/shared/InputField.vue";
 
@@ -111,11 +112,22 @@ const tools = ref("");
 const closeDate = ref("");
 const jobDescription = ref("");
 const website = ref("");
-const company_logo = ref("");
+const company_logo = ref<File | null>(null);
 const emailforappliction = ref("");
 const salary = ref("");
 
-const handleSubmitFormData = () => {
+const handleFileChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  if (target.files && target.files[0]) {
+    company_logo.value = target.files[0];
+  }
+};
+
+const handleSubmitFormData = async () => {
+  if (company_logo.value) {
+    await uploadFile(company_logo.value);
+  }
+
   const jobData = {
     company: company.value,
     featured: featured.value,
@@ -129,7 +141,7 @@ const handleSubmitFormData = () => {
     closeDate: closeDate.value,
     jobDescription: jobDescription.value,
     website: website.value,
-    company_logo: company_logo.value,
+    company_logo: company_logo.value ? company_logo.value.name : "",
     emailforappliction: emailforappliction.value,
     salary: salary.value,
   };

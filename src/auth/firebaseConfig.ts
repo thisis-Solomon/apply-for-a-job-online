@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 type configT = {
   apiKey: string;
@@ -10,6 +11,7 @@ type configT = {
   messagingSenderId: string;
   appId: string;
 };
+
 // Your web app's Firebase configuration
 const firebaseConfig: configT = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -21,7 +23,19 @@ const firebaseConfig: configT = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 // Initialize the Firebase Auth
-export const auth = getAuth();
+export const auth = getAuth(app);
+const storage = getStorage(app);
+
+// Upload File Function
+export async function uploadFile(file: File): Promise<void> {
+  try {
+    const storageRef = ref(storage, "company_logos/" + file.name);
+    const snapshot = await uploadBytes(storageRef, file);
+    console.log("File uploaded successfully:", snapshot);
+  } catch (error) {
+    console.error("Error uploading file:", error);
+  }
+}
