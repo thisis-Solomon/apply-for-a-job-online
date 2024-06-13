@@ -20,15 +20,34 @@ import { jobFilter } from "../utils/jobFilter";
 import { JobsT } from "../types/types";
 import { getAllJobPosts } from "../controllers/data";
 
-const jobs = ref<JobsT[]>(DUMMY_DATA);
+const jobs = ref<JobsT[]>([]);
 const filteredJobs = ref<string[]>([]);
 
+// Fetch jobs data on component mount
+onMounted(async () => {
+  try {
+    const jobPosts = await getAllJobPosts();
+    jobs.value = jobPosts.length ? jobPosts : DUMMY_DATA;
+    console.log(jobs);
+  } catch (error) {
+    console.error("Error fetching job posts:", error);
+    jobs.value = DUMMY_DATA; // Fallback to dummy data in case of an error
+  }
+});
+
+// Computed property to filter jobs based on selected filters
+const filteredJobsList = computed(() =>
+  jobFilter(jobs.value, filteredJobs.value)
+);
+
+// Function to remove a filter
 function removeFilteredJobs(filter: string) {
   filteredJobs.value = filteredJobs.value.filter(
-    (jobPosition: string) => jobPosition !== filter
+    (jobPosition) => jobPosition !== filter
   );
 }
 
+// Function to add a filter
 function addPositionToFilter(jobPosition: string) {
   if (
     !filteredJobs.value.includes(jobPosition) &&
@@ -38,17 +57,8 @@ function addPositionToFilter(jobPosition: string) {
   }
 }
 
+// Function to clear all filters
 function clearFilteredJobs() {
   filteredJobs.value = [];
 }
-
-onMounted(async () => {
-  const job = await getAllJobPosts();
-  jobs.value = [...job];
-  console.log(job);
-});
-
-const filteredJobsList = computed(() =>
-  jobFilter(jobs.value, filteredJobs.value)
-);
 </script>

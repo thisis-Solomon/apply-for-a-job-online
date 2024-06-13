@@ -1,4 +1,5 @@
 import { User } from "firebase/auth";
+import { FieldValue } from "firebase/firestore";
 
 export type JobsT = {
   id: number | string;
@@ -17,6 +18,7 @@ export type JobsT = {
 };
 
 export type JobPost = {
+  id?: string;
   company: string;
   featured: boolean;
   position: string;
@@ -32,6 +34,7 @@ export type JobPost = {
   company_logo: string;
   emailforappliction: string;
   salary: number;
+  createdAt: FieldValue;
 };
 
 export type SignUpT = (email: string, password: string) => Promise<User | null>;

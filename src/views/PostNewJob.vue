@@ -101,6 +101,7 @@ import ContainerLayout from "../components/ContainerLayout.vue";
 import InputField from "../components/shared/InputField.vue";
 import { addNewJobPost } from "../controllers/data";
 import { JobPost } from "../types/types";
+import { serverTimestamp } from "firebase/firestore";
 
 const company = ref("");
 const featured = ref(false);
@@ -147,6 +148,7 @@ const handleSubmitFormData = async () => {
     company_logo: companyLogoURL.value || "",
     emailforappliction: emailforappliction.value,
     salary: +salary.value,
+    createdAt: serverTimestamp(),
   };
 
   await addNewJobPost(jobData);
