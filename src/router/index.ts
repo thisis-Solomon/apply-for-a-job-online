@@ -29,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/add-new-job",
     name: "PostNewJob",
     component: PostNewJob,
-    meta: { requiredAuth: "true" },
+    meta: { requiredAuth: true },
   },
   {
     path: "/career-tips",
@@ -45,11 +45,13 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     name: "Login",
     component: Login,
+    meta: { requiresUnauth: true },
   },
   {
     path: "/sign-up",
     name: "SignUp",
     component: SignUp,
+    meta: { requiresUnauth: true },
   },
 ];
 
@@ -64,8 +66,12 @@ router.beforeEach(
     _from: RouteLocationNormalized,
     next: NavigationGuardNext
   ) => {
-    if (to.meta.requiredAuth && !authState.isAuthenticated) {
+    const isAuthenticated = authState.isAuthenticated;
+
+    if (to.meta.requiredAuth && !isAuthenticated) {
       next({ name: "Login" });
+    } else if (to.meta.requiresUnauth && isAuthenticated) {
+      next({ name: "Home" });
     } else {
       next();
     }

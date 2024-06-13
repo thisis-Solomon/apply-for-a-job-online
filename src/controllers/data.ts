@@ -7,27 +7,10 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "../auth/firebaseConfig";
+import { JobPost } from "../types/types";
 
 // Define the collection reference
 const dbCollection = collection(db, "jobs");
-
-// Type definitions for better type safety
-type JobPost = {
-  company: string;
-  website: string;
-  company_logo: string;
-  emailforappliction: string;
-  salary: number;
-  position: string;
-  role: string;
-  level: string;
-  contract: string;
-  location: string;
-  languages: string;
-  tools: string;
-  closeDate: string;
-  jobDescription: string;
-};
 
 // Function to get all job posts
 export async function getAllJobPosts() {

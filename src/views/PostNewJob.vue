@@ -99,6 +99,8 @@ import { ref } from "vue";
 import { uploadFile } from "../auth/firebaseConfig";
 import ContainerLayout from "../components/ContainerLayout.vue";
 import InputField from "../components/shared/InputField.vue";
+import { addNewJobPost } from "../controllers/data";
+import { JobPost } from "../types/types";
 
 const company = ref("");
 const featured = ref(false);
@@ -129,7 +131,7 @@ const handleSubmitFormData = async () => {
     companyLogoURL.value = await uploadFile(company_logo.value);
   }
 
-  const jobData = {
+  const jobData: JobPost = {
     company: company.value,
     featured: featured.value,
     position: position.value,
@@ -144,8 +146,9 @@ const handleSubmitFormData = async () => {
     website: website.value,
     company_logo: companyLogoURL.value || "",
     emailforappliction: emailforappliction.value,
-    salary: salary.value,
+    salary: +salary.value,
   };
-  console.log("form data submitted", jobData);
+
+  await addNewJobPost(jobData);
 };
 </script>
