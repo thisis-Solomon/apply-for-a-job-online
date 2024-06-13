@@ -1,7 +1,7 @@
 import { User } from "firebase/auth";
 
 export type JobsT = {
-  id: number;
+  id: number | string;
   company: string;
   logo: string;
   new: boolean;
@@ -24,8 +24,8 @@ export type JobPost = {
   level: string;
   contract: string;
   location: string;
-  languages: string;
-  tools: string;
+  languages: string[];
+  tools: string[];
   closeDate: string;
   jobDescription: string;
   website: string;

@@ -64,13 +64,13 @@
       <InputField
         v-model="languages"
         label="Languages"
-        placeholder="Javascript - React - Firebase"
+        placeholder="Javascript, React, Firebase"
         type="text"
       />
       <InputField
         v-model="tools"
         label="Tools"
-        placeholder="Figma - git - gitlab"
+        placeholder="Figma, git, gitlab"
         type="text"
       />
       <InputField
@@ -139,8 +139,8 @@ const handleSubmitFormData = async () => {
     level: level.value,
     contract: contract.value,
     location: location.value,
-    languages: languages.value,
-    tools: tools.value,
+    languages: languages.value.split(",").map((lang: string) => lang.trim()),
+    tools: tools.value.split(",").map((tool: string) => tool.trim()),
     closeDate: closeDate.value,
     jobDescription: jobDescription.value,
     website: website.value,

@@ -1,6 +1,6 @@
 <template>
   <div class="flex gap-x-5 items-center">
-    <img :src="job?.logo" :alt="job?.company" class="h-20" />
+    <img :src="job?.company_logo" :alt="job?.company" class="h-20 rounded-md" />
     <div class="flex flex-col gap-y-0.5">
       <h1 class="font-bold text-lg text-desaturated-dark-cyan">
         {{ job?.company }}
