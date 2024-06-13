@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 type configT = {
   apiKey: string;
@@ -29,13 +30,22 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 const storage = getStorage(app);
 
+// Initialize DB
+export const db = getFirestore(app);
+
 // Upload File Function
-export async function uploadFile(file: File): Promise<void> {
+export async function uploadFile(file: File): Promise<string | null> {
   try {
     const storageRef = ref(storage, "company_logos/" + file.name);
     const snapshot = await uploadBytes(storageRef, file);
     console.log("File uploaded successfully:", snapshot);
+
+    // Get the download URL
+    const downloadURL = await getDownloadURL(snapshot.ref);
+
+    return downloadURL;
   } catch (error) {
     console.error("Error uploading file:", error);
+    return null;
   }
 }

@@ -113,6 +113,7 @@ const closeDate = ref("");
 const jobDescription = ref("");
 const website = ref("");
 const company_logo = ref<File | null>(null);
+const companyLogoURL = ref<string | null>(null);
 const emailforappliction = ref("");
 const salary = ref("");
 
@@ -125,7 +126,7 @@ const handleFileChange = (event: Event) => {
 
 const handleSubmitFormData = async () => {
   if (company_logo.value) {
-    await uploadFile(company_logo.value);
+    companyLogoURL.value = await uploadFile(company_logo.value);
   }
 
   const jobData = {
@@ -141,7 +142,7 @@ const handleSubmitFormData = async () => {
     closeDate: closeDate.value,
     jobDescription: jobDescription.value,
     website: website.value,
-    company_logo: company_logo.value ? company_logo.value.name : "",
+    company_logo: companyLogoURL.value || "",
     emailforappliction: emailforappliction.value,
     salary: salary.value,
   };
