@@ -2,24 +2,42 @@
   <div class="relative container p-2 mx-auto w-[80%]">
     <Card v-if="job" :job="job">
       <JobHeader :job="job" />
-      <div
-        class="flex text-sm gap-x-5 text-desaturated-dark-cyan font-semibold"
-      >
-        <JobTag
-          v-for="tag in [job.role, job.level, ...job.languages]"
-          :key="tag"
-          :tag="tag"
-        />
+      <div>
+        <Card>
+          <div class="flex gap-x-8 pr-6">
+            <p class="text-center">
+              Close date
+              <span class="block">
+                {{ job?.closeDate }}
+              </span>
+            </p>
+            <p class="text-center">
+              Salary range
+              <span class="block"> K{{ job?.salary }} </span>
+            </p>
+          </div>
+          <a
+            :href="`mailto:${job?.emailforappliction}`"
+            target="_blank"
+            class="bg-light-rayish-cyan--background font-semibold uppercase tracking-widest text-lg rounded-md px-8 py-3 max-w-sm"
+            >Apply</a
+          >
+        </Card>
+        <div
+          class="flex text-sm gap-x-5 text-desaturated-dark-cyan font-semibold mb-4 mt-2"
+        >
+          <JobTag
+            v-for="tag in [job.role, job.level, ...job.languages]"
+            :key="tag"
+            :tag="tag"
+          />
+        </div>
       </div>
     </Card>
-
     <Card v-if="job" :job="job" class="flex-col">
       <article class="whitespace-pre-wrap mb-10">
-        {{ job.jobDescription }}
+        {{ job?.jobDescription }}
       </article>
-      <button class="bg-sky-500 py-3 px-8 rounded-md text-lg font-semibold">
-        Apply
-      </button>
     </Card>
   </div>
 </template>

@@ -42,6 +42,12 @@
         <span class="w-1 h-1 bg-dark-grayish-cyan rounded-full"></span>
         <li>{{ job?.location }}</li>
       </ul>
+      <a
+        :href="job?.website"
+        target="_blank"
+        class="underline text-desaturated-dark-cyan"
+        >{{ job?.website }}</a
+      >
     </div>
   </div>
 </template>

@@ -20,7 +20,7 @@ export type JobsT = {
 export type JobPost = {
   id?: string;
   company: string;
-  featured: boolean;
+  featured?: boolean;
   position: string;
   role: string;
   level: string;

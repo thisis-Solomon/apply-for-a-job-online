@@ -8,7 +8,6 @@ import { auth } from "./auth/firebaseConfig.ts";
 
 onAuthStateChanged(auth, (user) => {
   authState.isAuthenticated = !!user;
-  console.log(user?.providerData);
 });
 
 createApp(App)
