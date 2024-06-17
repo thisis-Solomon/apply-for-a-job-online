@@ -102,7 +102,9 @@ import InputField from "../components/shared/InputField.vue";
 import { addNewJobPost } from "../controllers/data";
 import { JobPost } from "../types/types";
 import { serverTimestamp } from "firebase/firestore";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const company = ref("");
 const featured = ref(false);
 const position = ref("");
@@ -152,5 +154,6 @@ const handleSubmitFormData = async () => {
   };
 
   await addNewJobPost(jobData);
+  router.push({ name: "Home" });
 };
 </script>

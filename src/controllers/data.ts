@@ -79,7 +79,6 @@ export async function removeClosedJobPost(id: string) {
     if (!currentUserUID) {
       throw new Error("User is not authenticated");
     }
-
     const jobPostDoc = doc(dbCollection, id);
     const jobPostSnapshot = await getDoc(jobPostDoc);
 
