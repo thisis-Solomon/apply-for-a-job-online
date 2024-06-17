@@ -1,5 +1,5 @@
 <template>
-  <div class="relative container p-2 mx-auto w-[80%]">
+  <div v-if="!isLoading" class="relative container p-2 mx-auto w-[80%]">
     <FilterTags
       :filters="filteredJobs"
       @remove-filter="removeFilteredJobs"
@@ -8,6 +8,9 @@
     <section v-for="job in filteredJobsList" :key="job.id">
       <JobLists :job="job" @add-to-filter="addPositionToFilter" />
     </section>
+  </div>
+  <div v-else class="flex justify-center items-center">
+    <h1 class="text-2xl tracking-widest font-semibold">Loading...</h1>
   </div>
 </template>
 
@@ -22,13 +25,14 @@ import { getAllJobPosts } from "../controllers/data";
 
 const jobs = ref<JobsT[]>([]);
 const filteredJobs = ref<string[]>([]);
-
+const isLoading = ref(true);
 // Fetch jobs data on component mount
 onMounted(async () => {
   try {
+    isLoading.value = true;
     const jobPosts = await getAllJobPosts();
     jobs.value = jobPosts.length ? jobPosts : DUMMY_DATA;
-    console.log(jobs);
+    isLoading.value = false;
   } catch (error) {
     console.error("Error fetching job posts:", error);
     jobs.value = DUMMY_DATA; // Fallback to dummy data in case of an error

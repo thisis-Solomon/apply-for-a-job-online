@@ -1,5 +1,11 @@
 <template>
-  <div class="relative container p-2 mx-auto w-[80%]">
+  <div v-if="!isLoading" class="relative container p-2 mx-auto w-[80%]">
+    <buttton
+      class="bg-red-400 absolute right-0 p-6 rounded-full cursor-pointer"
+      @click="removeJobPost"
+    >
+      <img src="/images/icon-remove.svg" alt="Remove" />
+    </buttton>
     <Card v-if="job" :job="job">
       <JobHeader :job="job" />
       <div>
@@ -40,6 +46,9 @@
       </article>
     </Card>
   </div>
+  <div v-else class="flex justify-center items-center">
+    <h1 class="text-2xl tracking-widest font-semibold">Loading...</h1>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -52,10 +61,17 @@ import { readMoreDetailsAboutAJobPost } from "../controllers/data";
 import { JobPost } from "../types/types";
 
 const route = useRoute();
-const id = ref(route.params.id as string);
+const id = ref<string>(route.params.id as string);
 const job = ref<JobPost | null>(null);
+const isLoading = ref<boolean>(true);
 
 onMounted(async () => {
+  isLoading.value = true;
   job.value = await readMoreDetailsAboutAJobPost(id.value);
+  isLoading.value = false;
 });
+
+const removeJobPost = async () => {
+  await readMoreDetailsAboutAJobPost(id);
+};
 </script>
